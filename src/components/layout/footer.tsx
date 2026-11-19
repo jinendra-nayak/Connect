@@ -53,7 +53,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col justify-between gap-4 border-t border-white/10 pt-8 text-xs text-mute sm:flex-row">
+        <p className="mt-16 max-w-3xl text-[0.7rem] leading-relaxed text-mute/80">
+          Photo credits: Echo Dot by Samuel Wiki (CC0). Google Nest Mini by Sikander Iqbal and Xiaomi temperature &amp; humidity sensor by
+          Jacek Halicki, both{" "}
+          <a className="underline underline-offset-2 hover:text-gold" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+          , via Wikimedia Commons. Amazon, Echo, Google, Nest and Xiaomi are trademarks of their owners; no endorsement is implied.
+        </p>
+        <div className="mt-8 flex flex-col justify-between gap-4 border-t border-white/10 pt-8 text-xs text-mute sm:flex-row">
           <p>© ConnectCom. All rights reserved.</p>
           <ul className="flex gap-6">
             <li><Link className={col} href="/privacy">Privacy Policy</Link></li>

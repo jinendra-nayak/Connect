@@ -19,7 +19,7 @@ export function SectionHeader({
       <Reveal y={12}>
         <p className="eyebrow">{eyebrow}</p>
       </Reveal>
-      <RevealHeading text={title} className="display mt-5 text-[clamp(2rem,4.2vw,3.6rem)] font-medium text-ivory" />
+      <RevealHeading text={title} className="display mt-5 text-[clamp(2.1rem,5vw,4.2rem)] font-medium text-ivory" />
       {description && (
         <Reveal delay={0.15}>
           <p className="mt-6 text-base leading-relaxed text-mute sm:text-lg">{description}</p>

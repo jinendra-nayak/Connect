@@ -1,12 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { Manrope, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { MotionProvider } from "@/components/shared/motion";
 import { LiquidGlassFilter } from "@/components/ui/liquid-glass-button";
 
 const body = Manrope({ subsets: ["latin"], variable: "--font-body", display: "swap" });
-const display = Sora({ subsets: ["latin"], variable: "--font-display", display: "swap" });
+const display = Cormorant_Garamond({ subsets: ["latin"], weight: ["400", "500", "600"], style: ["normal", "italic"], variable: "--font-display", display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -17,11 +17,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: "ConnectCom | Your Home. Connected. Intelligent. Effortless.",
+    title: "ConnectCom | Intelligent Living, Beautifully Connected.",
     description: site.description,
-    images: [{ url: "/images/living-2.jpg", width: 1600, height: 844, alt: "A modern living space powered by ConnectCom smart home automation" }],
+    images: [{ url: "/images/luxury/villa-evening.jpg", width: 1920, height: 1047, alt: "A modern living space powered by ConnectCom smart home automation" }],
   },
-  twitter: { card: "summary_large_image", title: "ConnectCom | Smart Home Automation", description: site.description, images: ["/images/living-2.jpg"] },
+  twitter: { card: "summary_large_image", title: "ConnectCom | Smart Home Automation", description: site.description, images: ["/images/luxury/villa-evening.jpg"] },
   alternates: { canonical: "/" },
 };
 

@@ -58,3 +58,14 @@ next-env.d.ts
 
 # local scratch / reference screenshots
 /tmp/
+
+# reference / third-party product photos used for local design testing only.
+# Never commit or deploy these; real ConnectCom photos go in public/images/products-final/
+/images/*
+# ...except openly licensed photos (CC0 / CC BY-SA) and their credits, so provenance is tracked
+!/images/free-licensed/
+/public/images/products/
+
+# python (scripts/prepare-images.py)
+__pycache__/
+*.pyc

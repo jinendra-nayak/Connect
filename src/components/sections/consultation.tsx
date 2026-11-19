@@ -68,7 +68,7 @@ export function Consultation() {
       <div className="mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
         <div>
           <p className="eyebrow">Get in touch</p>
-          <RevealHeading as="h2" text="Ready to Make Your Home Smarter?" className="display mt-5 text-[clamp(2rem,4.2vw,3.6rem)] font-medium text-ivory" />
+          <RevealHeading as="h2" text="Ready to Make Your Home Smarter?" className="display mt-5 text-[clamp(1.75rem,4.2vw,3.6rem)] font-medium text-ivory" />
           <span id="cta-title" className="sr-only">Ready to Make Your Home Smarter?</span>
           <Reveal delay={0.15}>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-mute">

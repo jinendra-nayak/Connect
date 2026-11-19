@@ -3,8 +3,8 @@ import { ImageStreamHero } from "@/components/ui/image-stream-hero";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 const images = [
-  "/images/stream/s1.jpg", "/images/panel-wall.svg", "/images/stream/s2.jpg", "/images/stream/s4.jpg",
-  "/images/stream/s5.jpg", "/images/panel-wall.svg", "/images/stream/s3.jpg", "/images/stream/s6.jpg",
+  "/images/stream/s1.jpg", "/images/stream/s8.jpg", "/images/stream/s2.jpg", "/images/stream/s4.jpg",
+  "/images/stream/s5.jpg", "/images/stream/s9.jpg", "/images/stream/s3.jpg", "/images/stream/s6.jpg",
   "/images/stream/s10.jpg", "/images/stream/s7.jpg",
 ].map((src) => ({ src }));
 
@@ -25,22 +25,22 @@ export function Hero() {
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-ink to-transparent" />
 
         <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-4xl flex-col items-center justify-center px-5 pb-20 pt-32 text-center sm:px-8">
-          <p className="eyebrow animate-[fadeUp_1s_0.1s_both]">Your Home. Connected. Intelligent. Effortless.</p>
+          <p className="eyebrow animate-[fadeUp_1s_0.1s_both]">ConnectCom · Premium Smart Home Automation</p>
           <h1
             id="hero-title"
-            className="display mt-7 animate-[fadeUp_1s_0.25s_both] text-balance text-[clamp(2.6rem,7vw,5.8rem)] font-medium text-ivory"
+            className="display mt-7 animate-[fadeUp_1s_0.25s_both] text-balance text-[clamp(2.9rem,7.6vw,6.4rem)] font-medium text-ivory"
           >
-            Experience the Future of <span className="text-gold">Intelligent Living.</span>
+            Intelligent Living, <span className="text-gold">Beautifully Connected.</span>
           </h1>
           <p className="mt-7 max-w-2xl animate-[fadeUp_1s_0.4s_both] text-pretty text-base leading-relaxed text-ivory/75 sm:text-lg">
-            Transform your home into an intelligent living space with beautifully designed smart panels, intelligent sensors and advanced security solutions.
+            From elegant touch panels to intelligent sensors and effortless voice control, ConnectCom brings your home together through beautifully integrated automation.
           </p>
           <div className="mt-10 flex w-full animate-[fadeUp_1s_0.55s_both] flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
-            <LiquidButton href="#products" variant="gold" className="w-full sm:w-auto">
-              Explore Smart Solutions <ArrowRight className="size-4" />
+            <LiquidButton href="#solutions" variant="gold" className="w-full sm:w-auto">
+              Discover Smart Living <ArrowRight className="size-4" />
             </LiquidButton>
             <LiquidButton href="#consultation" className="w-full sm:w-auto">
-              Book a Free Consultation
+              Book a Consultation
             </LiquidButton>
           </div>
         </div>

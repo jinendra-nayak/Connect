@@ -1,6 +1,6 @@
 import { DoorOpen, Droplets, Eye, ShieldCheck, Thermometer } from "lucide-react";
+import Image from "next/image";
 import { sensors } from "@/data/content";
-import { DeviceArt } from "@/components/shared/device-art";
 import { SectionHeader } from "@/components/shared/section";
 import { Reveal } from "@/components/shared/motion";
 
@@ -8,21 +8,14 @@ const icons = { motion: Eye, door: DoorOpen, temp: Thermometer, humidity: Drople
 
 export function Sensors() {
   return (
-    <section id="sensors" className="relative bg-charcoal/40 py-24 sm:py-36">
+    <section id="sensors" className="relative bg-charcoal/40 py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="grid items-end gap-12 lg:grid-cols-[1.2fr_1fr]">
+        <div>
           <SectionHeader
             eyebrow="Intelligent sensors"
             title="A home that notices, so you don't have to."
             description="Sensors quietly read what is happening around the house and let it respond, turning small everyday moments into effortless automation."
           />
-          <Reveal className="hidden justify-center lg:flex">
-            <div className="relative">
-              <div aria-hidden className="absolute -inset-10 animate-pulse rounded-full border border-gold/20 motion-reduce:animate-none" />
-              <div aria-hidden className="absolute -inset-20 rounded-full border border-gold/10" />
-              <DeviceArt variant="sensor" className="sm:w-48" />
-            </div>
-          </Reveal>
         </div>
 
         <ul className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
@@ -47,6 +40,15 @@ export function Sensors() {
             );
           })}
         </ul>
+
+        <Reveal className="mt-4">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/10 sm:aspect-[21/9]">
+            <Image src="/images/luxury/skyline-residence.jpg" alt="A luxury living space where lighting and curtains respond quietly in the background" fill sizes="(min-width:1280px) 1216px, 100vw" className="object-cover" />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/20 to-transparent" />
+            <p className="absolute bottom-5 left-5 max-w-xs font-display text-2xl leading-snug text-ivory sm:bottom-9 sm:left-9 sm:max-w-md sm:text-4xl">Lighting and curtains that follow the rhythm of the day.</p>
+            <span className="absolute right-3 top-3 rounded-full bg-ink/80 px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-mute backdrop-blur">Lifestyle photography</span>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

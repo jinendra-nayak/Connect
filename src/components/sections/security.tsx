@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { KeyRound, Link2, Lock, ShieldCheck } from "lucide-react";
 import { security } from "@/data/content";
-import { DeviceArt } from "@/components/shared/device-art";
 import { SectionHeader } from "@/components/shared/section";
 import { EnquireLink } from "@/components/shared/enquire-link";
 import { Reveal } from "@/components/shared/motion";
@@ -10,7 +9,7 @@ const icons = [ShieldCheck, KeyRound, Lock, Link2];
 
 export function Security() {
   return (
-    <section id="security" className="relative isolate overflow-hidden bg-ink py-24 sm:py-36">
+    <section id="security" className="relative isolate overflow-hidden bg-ink py-20 sm:py-32">
       <Image src="/images/night-15.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover opacity-25" />
       <div aria-hidden className="absolute inset-0 -z-10 bg-gradient-to-b from-ink via-ink/70 to-ink" />
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-2">
@@ -43,10 +42,10 @@ export function Security() {
           </Reveal>
         </div>
 
-        <Reveal y={50} className="flex justify-center">
-          <div className="glass relative flex h-[26rem] w-full max-w-md items-center justify-center rounded-[2.5rem] sm:h-[32rem]">
-            <div aria-hidden className="absolute inset-0 rounded-[2.5rem] bg-[radial-gradient(circle_at_50%_40%,rgb(201_169_110/0.2),transparent_65%)]" />
-            <DeviceArt variant="lock" className="relative scale-125 sm:scale-150" />
+        <Reveal y={50}>
+          <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/10">
+            <Image src="/images/hall-16.jpg" alt="A modern home entrance" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+            <span className="absolute bottom-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-mute backdrop-blur">Lifestyle photography</span>
           </div>
         </Reveal>
       </div>

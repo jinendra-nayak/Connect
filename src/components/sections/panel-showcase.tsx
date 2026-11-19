@@ -1,38 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 import { panelFeatures } from "@/data/content";
-import { Panel } from "@/components/shared/device-art";
+import { ProductPhoto } from "@/components/shared/photo-slot";
 import { SectionHeader } from "@/components/shared/section";
 import { EnquireLink } from "@/components/shared/enquire-link";
-import { cn } from "@/lib/utils";
+import { Reveal } from "@/components/shared/motion";
 
-/** Spatial showcase: a sticky device whose screen follows the feature in view. */
-export function PanelShowcase() {
-  const [active, setActive] = useState(0);
+/** Spatial showcase: a real panel photograph with subtle scroll parallax beside the feature list. */
+export function PanelShowcase({ photo }: { photo: string | null }) {
   const stage = useRef<HTMLDivElement>(null);
-  const refs = useRef<(HTMLLIElement | null)[]>([]);
   const { scrollYProgress } = useScroll({ target: stage, offset: ["start end", "end start"] });
-  const rotateY = useTransform(scrollYProgress, [0, 0.5, 1], [-14, 0, 14]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5, 1], [8, 0, -8]);
-
-  useEffect(() => {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(Number((e.target as HTMLElement).dataset.i));
-        });
-      },
-      { rootMargin: "-45% 0px -45% 0px" },
-    );
-    refs.current.forEach((el) => el && io.observe(el));
-    return () => io.disconnect();
-  }, []);
+  const y = useTransform(scrollYProgress, [0, 1], ["4%", "-4%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.04, 1, 1.04]);
 
   return (
-    <section id="panel" className="relative overflow-hidden bg-ink py-24 sm:py-36">
-      <div aria-hidden className="pointer-events-none absolute left-1/2 top-1/3 size-[42rem] -translate-x-1/2 rounded-full bg-gold/[0.07] blur-[120px]" />
+    <section id="panel" className="relative overflow-hidden bg-ink py-20 sm:py-32">
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeader
           eyebrow="Smart Glass Panel"
@@ -40,39 +24,31 @@ export function PanelShowcase() {
           description="A refined glass surface that brings the everyday controls of your home together in one beautiful place."
         />
 
-        <div ref={stage} className="mt-16 grid gap-12 lg:grid-cols-2 lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:h-[32rem] lg:self-start">
-            <div className="glass relative flex h-[22rem] items-center justify-center overflow-hidden rounded-[2rem] sm:h-[28rem] lg:h-full [perspective:1200px]">
-              {/* wall light wash */}
-              <div aria-hidden className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgb(201_169_110/0.18),transparent_60%)]" />
-              <motion.div style={{ rotateY, rotateX, transformStyle: "preserve-3d" }} className="relative">
-                <Panel active={panelFeatures[active].active} className="w-60 sm:w-72" />
-                <div aria-hidden className="absolute -bottom-10 left-1/2 h-8 w-4/5 -translate-x-1/2 rounded-full bg-black/60 blur-2xl" />
+        <div ref={stage} className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+          <div className="lg:sticky lg:top-28">
+            <div className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
+              <motion.div style={{ y, scale }} className="absolute -inset-[6%]">
+                <ProductPhoto src={photo} alt="Smart glass touch panel installed on a living-room wall" label="Installed interior photograph" sizes="(min-width:1024px) 50vw, 100vw" className="size-full rounded-none border-0" />
               </motion.div>
-              <p className="absolute bottom-5 left-0 right-0 text-center text-xs tracking-[0.25em] text-gold" aria-live="polite">
-                {panelFeatures[active].title.toUpperCase()}
-              </p>
             </div>
           </div>
 
-          <ol className="flex flex-col gap-6 lg:gap-0">
+          <ol>
             {panelFeatures.map((f, i) => (
-              <li
-                key={f.title}
-                data-i={i}
-                ref={(el) => { refs.current[i] = el; }}
-                className={cn(
-                  "rounded-3xl border p-7 transition-all duration-500 sm:p-9 lg:my-[8vh] lg:first:mt-0 lg:last:mb-0",
-                  active === i ? "border-gold/40 bg-white/[0.04]" : "border-white/10 opacity-70 lg:opacity-40",
-                )}
-              >
-                <span className="eyebrow">0{i + 1}</span>
-                <h3 className="display mt-3 text-2xl font-medium text-ivory sm:text-3xl">{f.title}</h3>
-                <p className="mt-3 text-mute">{f.text}</p>
+              <li key={f.title}>
+                <Reveal delay={i * 0.04}>
+                  <div className="flex gap-5 border-b border-white/10 py-6 sm:py-7">
+                    <span className="eyebrow pt-1.5">0{i + 1}</span>
+                    <div>
+                      <h3 className="display text-xl font-medium text-ivory sm:text-2xl">{f.title}</h3>
+                      <p className="mt-2 text-[0.95rem] leading-relaxed text-mute">{f.text}</p>
+                    </div>
+                  </div>
+                </Reveal>
               </li>
             ))}
-            <li className="pt-4 lg:pt-10">
-              <EnquireLink interest="Smart Glass Touch Panels" className="inline-flex items-center gap-2 rounded-full border border-gold/40 px-6 py-3 text-sm text-gold transition-colors hover:bg-gold hover:text-ink">
+            <li className="pt-8">
+              <EnquireLink interest="Smart Glass Touch Panels" className="inline-flex min-h-12 items-center rounded-full border border-gold/40 px-6 text-sm text-gold transition-colors hover:bg-gold hover:text-ink">
                 Enquire about Smart Glass Panels
               </EnquireLink>
             </li>
