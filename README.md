@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ConnectCom website
 
-## Getting Started
-
-First, run the development server:
+Next.js 16 · React 19 · TypeScript · Tailwind CSS v4 · Motion · Lucide.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # fill in real contact details
+npm run dev                  # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
+- `src/app` – layout, page, `/api/enquiry`, privacy, terms, robots, sitemap
+- `src/components/ui` – 21st.dev components (Image Stream Hero by Ruixen UI, Liquid Glass Button)
+- `src/components/sections` – one file per homepage section
+- `src/components/shared` – motion helpers, device artwork, logo
+- `src/data/content.ts` – all copy and product data (edit here)
+- `src/lib/site.ts` – brand + contact config (env driven; empty values hide the link)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Before launch
+1. Set `NEXT_PUBLIC_WHATSAPP_NUMBER`, phone, email, socials in `.env.local` (nothing is invented; unset = hidden).
+2. Set `ENQUIRY_WEBHOOK_URL` so consultation forms reach you. Without it the form reports failure rather than losing leads silently.
+3. Replace device illustrations with real photos: set `photo` on each item in `src/data/products.ts`-style list in `src/data/content.ts`.
+4. Replace Unsplash lifestyle photos in `public/images` if you have your own; have the legal pages reviewed.
