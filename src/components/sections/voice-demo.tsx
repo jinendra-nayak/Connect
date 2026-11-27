@@ -2,18 +2,21 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "motion/react";
-import { Check, RotateCcw } from "lucide-react";
+import { motion, useInView } from "motion/react";
+import { Check, MoonStar, RotateCcw, Sofa } from "lucide-react";
 import { voiceDemos } from "@/data/content";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/shared/motion";
+import { PearlButton } from "@/components/ui/pearl-button";
+import { Curtains, useMotorPosition } from "@/components/shared/curtains";
+import { useReducedMotionSafe } from "@/lib/use-media-query";
 
 type Demo = (typeof voiceDemos)[number];
 const STEP_MS = 1500;
 
 /** One playthrough. Remounted (via `key`) to replay, so state always starts at 0. */
 function Stage({ demo, play }: { demo: Demo; play: boolean }) {
-  const reduce = useReducedMotion();
+  const reduce = useReducedMotionSafe();
   const total = demo.steps.length;
   const [step, setStep] = useState(0); // 0 = just spoken, n = n-th response shown
 
@@ -28,7 +31,8 @@ function Stage({ demo, play }: { demo: Demo; play: boolean }) {
   // night: lights dim (step 1) -> curtains close (step 2) -> night scene (step 3)
   // living: base is dim; lights activate at step 1; environment responds at step 2
   const veil = night ? (s >= 1 ? 0.6 : 0) : s >= 1 ? 0 : 0.62;
-  const curtain = night && s >= 2 ? "27%" : "0%";
+  // Open until the "Curtains close" step, then all the way shut (1.4 s fits inside one step).
+  const curtain = useMotorPosition(night && s >= 2 ? 0 : 100, 1.4);
   const glow = !night && s >= 1;
 
   return (
@@ -45,12 +49,7 @@ function Stage({ demo, play }: { demo: Demo; play: boolean }) {
             transition={{ duration: 1.2 }}
           />
         )}
-        {night && (
-          <>
-            <motion.div aria-hidden className="absolute inset-y-0 left-0 bg-[linear-gradient(90deg,#1b1812,#2c2619_70%,#3a3322)] shadow-[8px_0_30px_rgb(0_0_0/0.5)]" initial={false} animate={{ width: curtain }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }} />
-            <motion.div aria-hidden className="absolute inset-y-0 right-0 bg-[linear-gradient(270deg,#1b1812,#2c2619_70%,#3a3322)] shadow-[-8px_0_30px_rgb(0_0_0/0.5)]" initial={false} animate={{ width: curtain }} transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }} />
-          </>
-        )}
+        {night && <Curtains position={curtain} />}
 
         {/* the spoken phrase */}
         <div className="absolute inset-x-4 bottom-4 sm:inset-x-6 sm:bottom-6">
@@ -100,25 +99,27 @@ export function VoiceDemo() {
             <h3 className="display mt-4 text-[clamp(1.9rem,4vw,3rem)] font-medium text-ivory">Say it. The home answers.</h3>
           </div>
           <div role="group" aria-label="Choose a voice example" className="flex flex-wrap gap-2.5">
-            {voiceDemos.map((d) => (
-              <button
-                key={d.id}
-                type="button"
-                aria-pressed={id === d.id}
-                onClick={() => { setId(d.id); setRun((n) => n + 1); }}
-                className={cn("min-h-11 rounded-full border px-5 text-sm transition-colors", id === d.id ? "border-gold bg-gold text-ink" : "border-white/15 text-ivory/80 hover:border-gold/50")}
-              >
-                {d.label}
-              </button>
-            ))}
-            <button
-              type="button"
-              onClick={() => setRun((n) => n + 1)}
+            {voiceDemos.map((d) => {
+              const Icon = d.id === "night" ? MoonStar : Sofa;
+              return (
+                <PearlButton
+                  key={d.id}
+                  size="sm"
+                  label={d.label}
+                  icon={<Icon aria-hidden className="size-4" strokeWidth={1.7} />}
+                  aria-pressed={id === d.id}
+                  onClick={() => { setId(d.id); setRun((n) => n + 1); }}
+                />
+              );
+            })}
+            <PearlButton
+              size="sm"
+              label=""
               aria-label="Replay animation"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-white/15 text-ivory/80 transition-colors hover:border-gold/50"
-            >
-              <RotateCcw className="size-4" />
-            </button>
+              className="w-11"
+              icon={<RotateCcw aria-hidden className="size-4" />}
+              onClick={() => setRun((n) => n + 1)}
+            />
           </div>
         </div>
       </Reveal>
@@ -126,9 +127,6 @@ export function VoiceDemo() {
       <div className="mt-8" aria-live="polite">
         <Stage key={`${demo.id}-${run}`} demo={demo} play={inView} />
       </div>
-      <p className="mt-4 text-xs leading-relaxed text-mute">
-        Illustration only. This animation shows the idea of a configured voice scene; it is not a live voice integration and does not control any device.
-      </p>
     </div>
   );
 }

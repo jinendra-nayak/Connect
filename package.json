@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@splinetool/react-spline": "^4.2.0",
+    "@splinetool/runtime": "^2.0.224",
     "clsx": "^2.1.1",
     "lucide-react": "^1.76.0",
     "motion": "^14.14.0",

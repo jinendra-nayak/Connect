@@ -45,7 +45,6 @@ export function Security() {
         <Reveal y={50}>
           <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-white/10">
             <Image src="/images/hall-16.jpg" alt="A modern home entrance" fill sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
-            <span className="absolute bottom-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-mute backdrop-blur">Lifestyle photography</span>
           </div>
         </Reveal>
       </div>

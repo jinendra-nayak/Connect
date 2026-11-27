@@ -5,6 +5,16 @@ import { Logo } from "@/components/shared/logo";
 
 const col = "text-sm text-mute transition-colors hover:text-gold";
 
+/** Where each product is actually shown on the home page. */
+const productAnchors: Partial<Record<(typeof interests)[number], string>> = {
+  "Smart Glass Touch Panels": "#panel",
+  "Smart Sensors": "#sensors",
+  "Smart Door Locks": "#security",
+  "Smart Lighting Automation": "#inside-home",
+  "Smart Curtain Automation": "#inside-home",
+  "Intelligent Home Control": "#connected",
+};
+
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-ink pb-28 pt-20 lg:pb-12">
@@ -29,7 +39,7 @@ export function Footer() {
           <nav aria-label="Products">
             <h2 className="eyebrow">Products</h2>
             <ul className="mt-5 space-y-3">
-              {interests.slice(0, 7).map((i) => <li key={i}><a className={col} href="#products">{i}</a></li>)}
+              {interests.slice(0, 7).map((i) => <li key={i}><a className={col} href={productAnchors[i] ?? "#products"}>{i}</a></li>)}
             </ul>
           </nav>
 
@@ -53,12 +63,6 @@ export function Footer() {
           </div>
         </div>
 
-        <p className="mt-16 max-w-3xl text-[0.7rem] leading-relaxed text-mute/80">
-          Photo credits: Echo Dot by Samuel Wiki (CC0). Google Nest Mini by Sikander Iqbal and Xiaomi temperature &amp; humidity sensor by
-          Jacek Halicki, both{" "}
-          <a className="underline underline-offset-2 hover:text-gold" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
-          , via Wikimedia Commons. Amazon, Echo, Google, Nest and Xiaomi are trademarks of their owners; no endorsement is implied.
-        </p>
         <div className="mt-8 flex flex-col justify-between gap-4 border-t border-white/10 pt-8 text-xs text-mute sm:flex-row">
           <p>© ConnectCom. All rights reserved.</p>
           <ul className="flex gap-6">

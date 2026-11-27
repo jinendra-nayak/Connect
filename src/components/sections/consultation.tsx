@@ -22,7 +22,10 @@ export function Consultation() {
   const [status, setStatus] = useState<Status>("idle");
 
   useEffect(() => {
-    const on = (e: Event) => setV((p) => ({ ...p, interest: (e as CustomEvent<string>).detail }));
+    const on = (e: Event) => {
+      setV((p) => ({ ...p, interest: (e as CustomEvent<string>).detail }));
+      setErrors((p) => ({ ...p, interest: undefined }));
+    };
     window.addEventListener(INTEREST_EVENT, on);
     return () => window.removeEventListener(INTEREST_EVENT, on);
   }, []);

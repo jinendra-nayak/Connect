@@ -27,8 +27,8 @@ export function PanelShowcase({ photo }: { photo: string | null }) {
         <div ref={stage} className="mt-14 grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
           <div className="lg:sticky lg:top-28">
             <div className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
-              <motion.div style={{ y, scale }} className="absolute -inset-[6%]">
-                <ProductPhoto src={photo} alt="Smart glass touch panel installed on a living-room wall" label="Installed interior photograph" sizes="(min-width:1024px) 50vw, 100vw" className="size-full rounded-none border-0" />
+              <motion.div style={{ y, scale }} className="absolute -inset-[6%] motion-reduce:!transform-none">
+                <ProductPhoto src={photo} alt="Smart glass touch panel installed on a living-room wall" sizes="(min-width:1024px) 50vw, 100vw" className="size-full rounded-none border-0" />
               </motion.div>
             </div>
           </div>

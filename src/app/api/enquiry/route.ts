@@ -5,6 +5,7 @@ export async function POST(req: Request) {
   let body: Partial<EnquiryInput>;
   try {
     body = await req.json();
+    if (!body || typeof body !== "object") throw new Error("not an object");
   } catch {
     return NextResponse.json({ error: "invalid_json" }, { status: 400 });
   }

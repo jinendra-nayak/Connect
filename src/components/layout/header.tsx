@@ -46,7 +46,12 @@ export function Header() {
       }
     };
     document.addEventListener("keydown", onKey);
+    // The drawer is hidden from lg up: close it, or the page would stay scroll-locked.
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onDesktop = () => desktop.matches && setOpen(false);
+    desktop.addEventListener("change", onDesktop);
     return () => {
+      desktop.removeEventListener("change", onDesktop);
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
       toggle?.focus();

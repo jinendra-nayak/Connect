@@ -3,17 +3,18 @@ import path from "node:path";
 
 /**
  * Product photo slots. A slot resolves to a file only if it exists in /public,
- * otherwise `null` and the UI renders a clearly labelled placeholder (never a fake device).
+ * otherwise `null` and nothing is rendered (never a placeholder or a fake device).
  *
  * To go live: drop ConnectCom's own photos into `public/images/products-final/`
  * using the filenames below (jpg), no code changes needed.
  */
 const SLOTS = {
   panelMain: ["products-final/panel-main.jpg", "products/ref-panel-black-3gang.jpg"],
+  switchMain: ["products-final/switch-main.jpg"],
   panelInstalled: ["luxury/panel-installed.jpg"],
   mobileControl: ["luxury/mobile-control.jpg"],
   voiceMoment: ["luxury/voice-moment.jpg"],
-  // Voice devices: drop licensed photos here. Until then the page shows a labelled placeholder (no invented hardware).
+  // Voice devices: licensed photos only. A slot without a file renders nothing.
   echoDevice: ["products-final/echo-device.jpg"],
   nestSpeaker: ["products-final/nest-speaker.jpg"],
   panelDetailA: ["products-final/panel-detail-1.jpg", "products/ref-panel-gold-frame.jpg"],

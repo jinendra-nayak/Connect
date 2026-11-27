@@ -2,11 +2,8 @@ import { ArrowRight } from "lucide-react";
 import { ImageStreamHero } from "@/components/ui/image-stream-hero";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
-const images = [
-  "/images/stream/s1.jpg", "/images/stream/s8.jpg", "/images/stream/s2.jpg", "/images/stream/s4.jpg",
-  "/images/stream/s5.jpg", "/images/stream/s9.jpg", "/images/stream/s3.jpg", "/images/stream/s6.jpg",
-  "/images/stream/s10.jpg", "/images/stream/s7.jpg",
-].map((src) => ({ src }));
+// Product-led cards: touch panels and smart switches first.
+const images = Array.from({ length: 10 }, (_, i) => ({ src: `/images/showcase/p${i + 1}.jpg` }));
 
 export function Hero() {
   return (
@@ -17,7 +14,8 @@ export function Hero() {
         cards={9}
         speed={22}
         axis={58}
-        className="absolute inset-y-0 left-1/2 w-[320%] -translate-x-1/2 sm:w-[150%] lg:w-full"
+        // Dimmed so the bright product backdrops never fight the copy, most of all on phones.
+        className="absolute inset-y-0 left-1/2 w-[320%] -translate-x-1/2 sm:w-[150%] lg:w-full [&_img]:brightness-[0.6] sm:[&_img]:brightness-[0.7] lg:[&_img]:brightness-90"
       />
       <div className="relative">
         {/* legibility veil: keeps the corridor cinematic but the copy readable */}

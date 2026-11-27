@@ -6,8 +6,15 @@ import { EnquireLink } from "@/components/shared/enquire-link";
 import { ProductPhoto } from "@/components/shared/photo-slot";
 import { SectionHeader } from "@/components/shared/section";
 import { Reveal } from "@/components/shared/motion";
+import { cn } from "@/lib/utils";
 
 const sensorSlots = ["sensorMotion", "sensorDoor", "sensorTemp", "sensorHumidity", "sensorSecurity"] as const;
+
+/** Slots still filled by third-party photos. Delete an entry once ConnectCom's own photo replaces it. */
+const thirdParty: Partial<Record<(typeof sensorSlots)[number], string>> = {
+  sensorTemp: "Reference photo: Xiaomi sensor",
+  sensorHumidity: "Reference photo: Xiaomi sensor",
+};
 
 function Copy({
   category, title, text, interest, children,
@@ -27,6 +34,8 @@ function Copy({
 }
 
 export function Products({ photos }: { photos: Photos }) {
+  // Only sensors with a photograph get a tile; all of them are described in the Sensors section.
+  const shown = sensorSlots.map((key, i) => ({ key, title: sensors[i].title })).filter((s) => photos[s.key]);
   return (
     <section id="products" className="relative bg-charcoal/40 py-20 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -39,14 +48,15 @@ export function Products({ photos }: { photos: Photos }) {
         {/* 1. Smart Glass Panels — large photograph, details beside */}
         <article className="group mt-16 grid gap-8 lg:mt-24 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-7">
-            <ProductPhoto src={photos.panelMain} alt="Smart glass touch panel on a wall" label="Smart Glass Panel" sizes="(min-width:1024px) 58vw, 100vw" className="aspect-[3/2] w-full" />
-            <div className="mt-3 grid grid-cols-2 gap-3">
-              <ProductPhoto src={photos.panelDetailA} alt="Smart glass panel with gold frame" label="Panel detail" sizes="(min-width:1024px) 29vw, 50vw" className="aspect-[16/9]" />
-              <ProductPhoto src={photos.panelDetailB} alt="Smart glass panel close-up" label="Panel close-up" sizes="(min-width:1024px) 29vw, 50vw" className="aspect-[16/9]" />
+            <ProductPhoto src={photos.panelMain} alt="Smart glass touch panel on a wall" sizes="(min-width:1024px) 58vw, 100vw" className="aspect-[3/2] w-full" />
+            <div className="mt-3 grid grid-cols-3 gap-3">
+              <ProductPhoto src={photos.switchMain} alt="Four-key smart switch panel" sizes="(min-width:1024px) 20vw, 33vw" className="aspect-[4/3]" />
+              <ProductPhoto src={photos.panelDetailA} alt="Smart glass panel with gold frame" sizes="(min-width:1024px) 20vw, 33vw" className="aspect-[4/3] bg-[#ded7cb]" fit="contain" />
+              <ProductPhoto src={photos.panelDetailB} alt="Smart glass panel close-up" sizes="(min-width:1024px) 20vw, 33vw" className="aspect-[4/3]" />
             </div>
           </Reveal>
           <Reveal delay={0.1} className="lg:col-span-5">
-            <Copy category="01 · Smart Glass Panels" title="Smart Glass Touch Panels" interest="Smart Glass Touch Panels" text="Touch-sensitive glass that puts lighting, scenes, curtains and appliances under one fingertip.">
+            <Copy category="01 · Panels & Switches" title="Touch Panels & Smart Switches" interest="Smart Glass Touch Panels" text="Touch-sensitive glass that puts lighting, scenes, curtains and appliances under one fingertip.">
               <ul className="mt-6 space-y-2.5 text-sm text-ivory/80">
                 {panelFeatures.map((f) => (
                   <li key={f.title} className="flex items-center gap-3 border-b border-white/10 pb-2.5"><span className="size-1 rounded-full bg-gold" />{f.title}</li>
@@ -70,12 +80,13 @@ export function Products({ photos }: { photos: Photos }) {
               </EnquireLink>
             </div>
           </Reveal>
-          <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-            {sensorSlots.map((k, i) => (
-              <li key={k} className="group last:col-span-2 sm:last:col-span-1">
+          <ul className={cn("mt-8 grid gap-3", shown.length >= 5 ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" : shown.length === 4 ? "grid-cols-2 lg:grid-cols-4" : "grid-cols-3")}>
+            {shown.map(({ key, title }, i) => (
+              <li key={key} className="group">
                 <Reveal delay={i * 0.06}>
-                  <ProductPhoto src={photos[k]} alt={sensors[i].title} label={sensors[i].title} sizes="(min-width:1024px) 20vw, 50vw" className="aspect-square" />
-                  <p className="mt-3 text-sm font-medium text-ivory">{sensors[i].title}</p>
+                  <ProductPhoto src={photos[key]} alt={title} sizes="(min-width:1024px) 33vw, 50vw" className="aspect-square" />
+                  <p className="mt-3 text-sm font-medium text-ivory">{title}</p>
+                  {thirdParty[key] && <p className="mt-0.5 text-xs text-mute">{thirdParty[key]}</p>}
                 </Reveal>
               </li>
             ))}
@@ -88,10 +99,10 @@ export function Products({ photos }: { photos: Photos }) {
             <Copy category="03 · Smart Door Locks" title="Smart Door Locks" interest="Smart Door Locks" text="Secure, convenient entry designed to sit beautifully on your door." />
           </Reveal>
           <Reveal className="order-1 lg:order-2 lg:col-span-7">
-            <ProductPhoto src={photos.lockMain} alt="Smart door lock installed on a door" label="Smart Door Lock" sizes="(min-width:1024px) 58vw, 100vw" className="aspect-[3/2] w-full" />
+            <ProductPhoto src={photos.lockMain} alt="Smart door lock installed on a door" sizes="(min-width:1024px) 58vw, 100vw" className="aspect-[3/2] w-full" />
             <div className="mt-3 grid grid-cols-2 gap-3">
-              <ProductPhoto src={photos.lockDetailA} alt="Smart lock keypad close-up" label="Keypad / reader detail" sizes="(min-width:1024px) 29vw, 50vw" className="aspect-[16/9]" />
-              <ProductPhoto src={photos.lockDetailB} alt="Smart lock handle and finish" label="Handle & finish" sizes="(min-width:1024px) 29vw, 50vw" className="aspect-[16/9]" />
+              <ProductPhoto src={photos.lockDetailA} alt="Smart lock keypad close-up" sizes="(min-width:1024px) 29vw, 50vw" className="aspect-[16/9]" />
+              <ProductPhoto src={photos.lockDetailB} alt="Smart lock handle and finish" sizes="(min-width:1024px) 29vw, 50vw" className="aspect-[16/9]" />
             </div>
           </Reveal>
         </article>
@@ -100,11 +111,10 @@ export function Products({ photos }: { photos: Photos }) {
         <article className="group mt-20 grid gap-8 sm:mt-28 lg:grid-cols-12 lg:gap-14">
           <Reveal className="lg:col-span-7">
             {photos.controlMain ? (
-              <ProductPhoto src={photos.controlMain} alt="Smart home control installed" label="Smart Home Control" className="aspect-[3/2] w-full" />
+              <ProductPhoto src={photos.controlMain} alt="Smart home control installed" className="aspect-[3/2] w-full" />
             ) : (
               <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-white/10">
                 <Image src="/images/living-3.jpg" alt="A modern connected living space" fill sizes="(min-width:1024px) 58vw, 100vw" className="object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03] motion-reduce:transition-none" />
-                <span className="absolute bottom-3 left-3 rounded-full bg-ink/80 px-3 py-1 text-[0.65rem] uppercase tracking-[0.2em] text-mute backdrop-blur">Lifestyle photography · control product photo to be added</span>
               </div>
             )}
           </Reveal>

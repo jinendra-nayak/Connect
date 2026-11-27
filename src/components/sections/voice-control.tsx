@@ -30,7 +30,7 @@ export function VoiceControl({ photos }: { photos: Photos }) {
             <div className="group relative aspect-[16/10] overflow-hidden rounded-3xl border border-white/10 sm:aspect-[16/9]">
               <Image
                 src="/images/luxury/villa-evening.jpg"
-                alt="A luxury residence at dusk with a ConnectCom touch panel on the wall"
+                alt="A luxury residence at dusk with a wall-mounted control screen"
                 fill
                 priority={false}
                 sizes="(min-width:1024px) 66vw, 100vw"
@@ -44,7 +44,7 @@ export function VoiceControl({ photos }: { photos: Photos }) {
                   <span className="relative size-3 rounded-full border-2 border-ink bg-gold" />
                 </span>
                 <span className="absolute left-full top-1/2 ml-2 hidden -translate-y-1/2 whitespace-nowrap rounded-full bg-ink/75 px-3 py-1 text-[0.7rem] tracking-wide text-ivory backdrop-blur sm:block">
-                  ConnectCom smart glass panel
+                  Wall control
                 </span>
               </div>
               <p className="absolute bottom-4 left-5 max-w-[16rem] text-sm leading-snug text-ivory/90 sm:bottom-6 sm:left-8 sm:max-w-sm sm:text-base">
@@ -55,19 +55,16 @@ export function VoiceControl({ photos }: { photos: Photos }) {
 
           <div className="grid grid-cols-3 gap-3 lg:col-span-4 lg:grid-cols-1 lg:grid-rows-3 lg:gap-4">
             <Reveal delay={0.05}>
-              <ProductPhoto src={photos.echoDevice} alt="Amazon Echo smart speaker" label="Amazon Echo" sizes="(min-width:1024px) 33vw, 33vw" className="aspect-square bg-[#e6e0d4] lg:aspect-auto lg:h-full" fit="contain" />
+              <ProductPhoto src={photos.echoDevice} alt="Amazon Echo smart speaker" sizes="(min-width:1024px) 33vw, 33vw" className="aspect-square bg-[#e6e0d4] lg:aspect-auto lg:h-full" fit="contain" />
             </Reveal>
             <Reveal delay={0.1}>
-              <ProductPhoto src={photos.nestSpeaker} alt="Google Nest smart speaker" label="Google Nest" sizes="(min-width:1024px) 33vw, 33vw" className="aspect-square bg-[#e6e0d4] lg:aspect-auto lg:h-full" fit="contain" />
+              <ProductPhoto src={photos.nestSpeaker} alt="Google Nest smart speaker" sizes="(min-width:1024px) 33vw, 33vw" className="aspect-square bg-[#e6e0d4] lg:aspect-auto lg:h-full" fit="contain" />
             </Reveal>
             <Reveal delay={0.15}>
-              <ProductPhoto src={photos.panelDetailB} alt="ConnectCom smart glass touch panel installed on a wall" label="ConnectCom smart glass panel" sizes="(min-width:1024px) 33vw, 33vw" className="aspect-square lg:aspect-auto lg:h-full" />
+              <ProductPhoto src={photos.panelDetailB} alt="ConnectCom smart glass touch panel installed on a wall" sizes="(min-width:1024px) 33vw, 33vw" className="aspect-square lg:aspect-auto lg:h-full" />
             </Reveal>
           </div>
         </div>
-        <p className="mt-3 text-xs text-mute">
-          Amazon Echo and Google Nest are third-party products, shown for context. ConnectCom does not make smart speakers.
-        </p>
 
         {/* Assistant cards */}
         <ul className="mt-16 grid gap-4 md:grid-cols-3">
@@ -104,11 +101,6 @@ export function VoiceControl({ photos }: { photos: Photos }) {
             </li>
           ))}
         </ul>
-        <p className="mt-4 max-w-3xl text-xs leading-relaxed text-mute">
-          Amazon Alexa, Google Assistant and Apple HomeKit are trademarks of their respective owners. Names are used only to describe
-          compatibility; no partnership, certification or endorsement is implied. Support depends on the specific ConnectCom product
-          and will be confirmed in its specification.
-        </p>
 
         <VoiceDemo />
 

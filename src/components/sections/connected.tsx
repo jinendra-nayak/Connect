@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Cpu } from "lucide-react";
+import { Cpu, DoorOpen, House, MoonStar, Sparkles, Sunset } from "lucide-react";
+import { PearlButton } from "@/components/ui/pearl-button";
 import type { Photos } from "@/lib/photos";
 import { controlMethods, scenes } from "@/data/content";
 import { SectionHeader } from "@/components/shared/section";
@@ -9,6 +10,8 @@ import { ProductPhoto } from "@/components/shared/photo-slot";
 import { cn } from "@/lib/utils";
 
 type Id = (typeof controlMethods)[number]["id"];
+
+const sceneIcons = { arrive: House, evening: Sunset, night: MoonStar, away: DoorOpen, all: Sparkles } as const;
 
 /** Where each connector meets its card on the lg layout (percent of the stage). */
 const anchors: Record<Id, { x: number; y: number }> = {
@@ -22,11 +25,11 @@ export function Connected({ photos }: { photos: Photos }) {
   const [scene, setScene] = useState<string>(scenes[4].id);
   const on: readonly string[] = scenes.find((s) => s.id === scene)!.on;
 
-  const pics: Record<Id, { src: string | null; alt: string; label: string }> = {
-    touch: { src: photos.panelDetailB, alt: "Smart glass touch panel on a wall", label: "Smart glass panel" },
-    voice: { src: photos.voiceMoment, alt: "Relaxing at home and speaking to a voice assistant", label: "Voice moment" },
-    mobile: { src: photos.mobileControl, alt: "A smartphone app beside a smart glass switch", label: "Mobile app" },
-    auto: { src: photos.sensorMotion, alt: "A smart motion sensor", label: "Smart sensor" },
+  const pics: Record<Id, { src: string | null; alt: string }> = {
+    touch: { src: photos.panelDetailB, alt: "Smart glass touch panel on a wall" },
+    voice: { src: photos.voiceMoment, alt: "Relaxing at home and speaking to a voice assistant" },
+    mobile: { src: photos.mobileControl, alt: "A smartphone app beside a smart glass switch" },
+    auto: { src: photos.sensorMotion, alt: "A smart motion sensor" },
   };
 
   const card = (m: (typeof controlMethods)[number], i: number) => {
@@ -42,7 +45,7 @@ export function Connected({ photos }: { photos: Photos }) {
           )}
         >
           <div className="grid grid-cols-5 sm:grid-cols-1">
-            <ProductPhoto src={pic.src} alt={pic.alt} label={pic.label} sizes="(min-width:1024px) 22vw, 40vw" className="col-span-2 aspect-auto min-h-32 rounded-none border-0 sm:aspect-[16/9]" />
+            <ProductPhoto src={pic.src} alt={pic.alt} sizes="(min-width:1024px) 22vw, 40vw" className="col-span-2 aspect-auto min-h-32 rounded-none border-0 sm:aspect-[16/9]" />
             <div className="col-span-3 p-5 sm:p-6">
               <p className="eyebrow">0{i + 1}</p>
               <h3 className="display mt-2 text-[1.5rem] font-medium leading-tight text-ivory sm:text-[1.7rem]">{m.title}</h3>
@@ -64,24 +67,23 @@ export function Connected({ photos }: { photos: Photos }) {
           align="center"
           eyebrow="Connected living"
           title="One Connected Home. Multiple Ways to Control."
-          description="Choose an everyday moment and see which ways of control take part. This illustrates the idea; it is not a product specification."
+          description="Choose an everyday moment and see which ways of control take part."
         />
 
         <div role="group" aria-label="Choose a moment" className="mt-10 flex flex-wrap justify-center gap-2.5">
-          {scenes.map((s) => (
-            <button
-              key={s.id}
-              type="button"
-              aria-pressed={scene === s.id}
-              onClick={() => setScene(s.id)}
-              className={cn(
-                "min-h-11 rounded-full border px-5 text-sm transition-colors",
-                scene === s.id ? "border-gold bg-gold text-ink" : "border-white/15 text-ivory/80 hover:border-gold/50",
-              )}
-            >
-              {s.label}
-            </button>
-          ))}
+          {scenes.map((s) => {
+            const Icon = sceneIcons[s.id];
+            return (
+              <PearlButton
+                key={s.id}
+                size="sm"
+                label={s.label}
+                icon={<Icon aria-hidden className="size-4" strokeWidth={1.7} />}
+                aria-pressed={scene === s.id}
+                onClick={() => setScene(s.id)}
+              />
+            );
+          })}
         </div>
 
         <div className="relative mt-14">
@@ -125,11 +127,6 @@ export function Connected({ photos }: { photos: Photos }) {
             </ul>
           </div>
         </div>
-
-        <p className="mt-10 flex items-center justify-center gap-3 text-xs text-mute">
-          <svg width="34" height="4" aria-hidden><line x1="0" y1="2" x2="34" y2="2" stroke="#C9A96E" strokeWidth="1.4" strokeDasharray="5 5" /></svg>
-          Conceptual connection. Not a wiring diagram.
-        </p>
       </div>
     </section>
   );

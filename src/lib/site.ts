@@ -17,6 +17,13 @@ export const site = {
   phone: process.env.NEXT_PUBLIC_CONTACT_PHONE ?? "",
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS ?? "",
+  /**
+   * 3D scene of the voice & app section. Defaults to the robot from the 21st.dev "splite" demo;
+   * set the variable to your own exported copy before a commercial launch.
+   */
+  splineScene: /^https:\/\/\S+\.splinecode(\?\S*)?$/.test(process.env.NEXT_PUBLIC_SPLINE_SCENE_URL ?? "")
+    ? process.env.NEXT_PUBLIC_SPLINE_SCENE_URL!
+    : "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode",
   socials: [
     { label: "Instagram", href: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "" },
     { label: "Facebook", href: process.env.NEXT_PUBLIC_FACEBOOK_URL ?? "" },

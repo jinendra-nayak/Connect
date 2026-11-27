@@ -22,7 +22,6 @@ export const metadata: Metadata = {
     images: [{ url: "/images/luxury/villa-evening.jpg", width: 1920, height: 1047, alt: "A modern living space powered by ConnectCom smart home automation" }],
   },
   twitter: { card: "summary_large_image", title: "ConnectCom | Smart Home Automation", description: site.description, images: ["/images/luxury/villa-evening.jpg"] },
-  alternates: { canonical: "/" },
 };
 
 export const viewport: Viewport = { themeColor: "#080A0D", colorScheme: "dark" };
